@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Addbook{% endblock %}
+
+{% block header %}Add book{% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('admin')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('logout')}}">Logout</a>
+        </li>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="row justify-content-center text-success">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+<div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="row justify-content-center">
+            <h2>Addbook</h2>
+            </div>
+            <form action="{{ url_for('addbook') }}" method="post">
+                <div class="form-group">
+                    <label for="bookname">Bookname:</label>
+                    <input type="text" class="form-control" id="bookname" name="bookname" required>
+                </div>
+                    <label for="bookcategory">Bookcategory:</label>
+                    <select id="bookcategory" name="bookcategory">
+                      {% for category in categories %}
+                      <option value="{{category.category_name}}">{{ category.category_name }} </option>
+                      {% endfor %}
+                  </select>          
+                <div class="form-group">
+                    <label for="bookauthor">Authorname:</label>
+                    <input type="text" class="form-control" id="bookauthor" name="bookauthor" required>
+                </div>
+                <div class="form-group">
+                  <label for="bookreadable">Book(Text):</label>
+                  <input type="text" class="form-control" id="bookreadable" name="bookreadable" required>
+              </div>
+                <div class="row justify-content-center">
+                <button type="submit" class="btn btn-success mb-5">Add</button>
+                </div>
+            </form>
+        </div>
+</div>
+{% endblock %}

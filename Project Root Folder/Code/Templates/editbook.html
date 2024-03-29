@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+<!-- Without nav -->
+
+{% block content %}
+<div class="container mt-5">
+    <form action="{{ url_for('editbook',bookid=bookid) }}" method="post">
+      <div class="form-group">
+        <label for="Bookname">Bookname</label>
+        <input type="text" class="form-control" id="Bookname" name="Bookname" placeholder="Enter your Bookname">
+      </div>
+      <div class="form-group">
+        <label for="Bookcategory">Bookcategories:</label>
+            <select id="Bookcategory" name="Bookcategory">
+                {% for category in categories %}
+                    <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                {% endfor %}
+            </select>
+      </div>
+      <div class="form-group">
+        <label for="bookauthor">Bookauthor</label>
+        <input type="text" class="form-control" id="bookauthor" name="bookauthor" placeholder="Enter your Bookauthor">
+      </div>
+      <div class="form-group">
+        <label for="bookcontent">Bookcontent</label>
+        <input type="text" class="form-control" id="bookcontent" name="bookcontent" placeholder="Enter your Bookcontent">
+      </div>
+      <button type="submit" class="btn btn-primary mb-5">Submit</button>
+    </form>
+  </div>
+{% endblock %}

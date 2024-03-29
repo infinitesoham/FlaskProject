@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %} This is Orders {% endblock %}
+
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('admin')}}">Home</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block header %} Requests here {% endblock %}
+{% block content %}
+
+
+
+
+
+
+
+<div class="container mt-4">
+ 
+    {% for order in orders %}
+    {% for book in books %}
+    {% if book.book_id==order.book_id %}
+    <div class="card">
+    <div class="card-body">
+     {{ order.order_id }}
+     
+        <a href="{{url_for('showuser',userid=order.user_id)}}" class="btn btn-primary">Show user</a>
+        {% if order.Order_status=='Approved' %}
+        <a class="btn btn-success" >Approved {{order.order_id}}</a>
+        <a class="btn btn-success" ><strong>Book</strong> {{book.book_name}}</a>
+        {% endif %}
+        {% if order.Order_status=='Pending' %}
+        <a  class="btn btn-danger">Pending {{order.order_id}}</a>
+        <a class="btn btn-success" ><strong>Book</strong> {{book.book_name}}</a>
+        <a href="{{url_for('approvestatus',orderid=order.order_id)}} " class="btn btn-primary">Approve {{order.order_id}}</a>
+        {% endif %}
+
+      
+      </div> 
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+   
+</div>
+
+{% endblock %}
+

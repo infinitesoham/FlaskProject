@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %} This is books {% endblock %}
+
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('admin')}}">Home</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block header %} Books here {% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+            {% for  message in messages %}
+                <div class="row justify-content-center text-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+<div class="container mt-5">
+    <h1 class="text-center">Books</h1>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for book in books %}
+        <div class="col">
+            <div class="card mt-2 mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.book_name }}</h5>
+                    <p class="card-text"><strong>Book id:</strong>{{ book.book_id }} <strong>Bookname:</strong> {{ book.book_name }} <strong>Bookauthor:</strong> {{ book.book_author }} <strong>Book Date:</strong> {{ book.book_available_from }} </p>
+                  <a href="{{url_for('editbook',bookid=book.book_id)}}" class="btn btn-primary">Edit book</a>  
+                  <a href="{{url_for('bookadmindrop',bookid=book.book_id)}}" class="btn btn-custom">Remove book</a>
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="row justify-content-center">
+<a href="{{url_for('addbook')}}" class="btn btn-success mt-5 mb-5">Add</a>
+</div>
+{% endblock %}   

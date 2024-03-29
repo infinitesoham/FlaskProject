@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('dashboard')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('mybook')}}">Mybook</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('logout')}}">Logout</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search" method="post">
+        <input class="form-control me-2 ml-2 mr-2" type="search" id="search_query" name="search_query" placeholder="Search" aria-label="Search">
+        <select id="category" name="category">
+            <option value="category1">Category </option>
+            <option value="category2">Book</option>
+            <option value="category3">Author</option>
+        </select>
+
+
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+{% block header %}User Dashboard{% endblock %}
+
+{% block content %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="row justify-content-center custom-text-color" >
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+  <section>
+    <div class="dashboard-content">
+    {% if search=='customized' %}
+    <ul>  
+      
+      {% for category in categories %}
+        {% for book in category.books %}
+          {% if query and book.book_name==query %}
+          <div class="card mt-5">
+            <div class="card-body">
+              <h2 class="card-title">{{book.book_id}}</h2>
+              <p class="card-text">{{book.book_name}}  {{book.book_author}}</p>
+              <a href="{{url_for('addmybook',userid=user.user_id,bookid=book.book_id)}}" class="btn btn-primary">Request Book</a>
+            </div>
+          </div>
+          {% endif %}
+          {% if not query and book.book_author==author %}
+          <div class="card mt-5">
+            <div class="card-body">
+              <h2 class="card-title">{{book.book_id}}</h2>
+              <p class="card-text">{{book.book_name}}  {{book.book_author}}</p>
+              <a href="{{url_for('addmybook',userid=user.user_id,bookid=book.book_id)}}" class="btn btn-primary">Apply for book</a>
+            </div>
+          </div>
+          {% endif %}
+          {% if not query and not author %}
+          <div class="card mt-5">
+            <div class="card-body">
+              <h2 class="card-title">{{book.book_name}}</h2>
+              <p class="card-text">{{book.book_name}}  {{book.book_author}}</p>
+              <a href="{{url_for('addmybook',userid=user.user_id,bookid=book.book_id)}}" class="btn btn-primary">Apply for book</a>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+      {% endif %}
+
+      
+    </ul>
+    {% if search=='simple' %}
+    <ul>
+    
+      {% for book in books %}
+      <div class="card mt-5">
+        <div class="card-body">
+          <h2 class="card-title">{{book.book_id}}</h2>
+          <p class="card-text">{{book.book_name}}  {{book.book_author}}</p>
+          <a href="{{url_for('addmybook',userid=user.user_id,bookid=book.book_id)}}" class="btn btn-primary">Apply for book</a>
+        </div>
+      </div>
+      {% endfor %}
+     
+    </ul>
+    {% endif %}
+    </div>
+  </section>
+{% endblock %}

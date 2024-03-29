@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Landing page{% endblock %}
+
+{% block header %}welcome to Library management webpage{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h2>welcome</h2>
+            <p>Please select an option:</p>
+            <div class="btn-group mb-3" role="group" aria-label="Options">
+                <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+                <a href="{{ url_for('register') }}" class="btn btn-success ml-2">Register</a>
+            </div>
+            <br>
+            <a href="{{ url_for('adminlogin') }}" class="btn btn-info mb-5">Librarian</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

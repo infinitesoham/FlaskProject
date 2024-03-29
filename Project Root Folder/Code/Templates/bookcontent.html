@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+{% if pdf %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#overlayModal">
+    Download ebook pdf
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+         <div class="modal fade" id="overlayModal" tabindex="-1" role="dialog" aria-labelledby="overlayModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="overlayModalLabel">Download ebook pdf</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Paid amount,download ebook available</p>
+          <div class="row justify-content-center">
+          <a class="btn btn-success" href="{{ url_for('download_file',pdf_id=pdf.id)}}">Download ebook as pdf <span class="sr-only"></span></a>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('dashboard')}}">Dashboard <span class="sr-only"></span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+          <h2 class="text-center mb-4">Book</h2>
+          <p class="text-justify">
+           {{show}}
+          </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

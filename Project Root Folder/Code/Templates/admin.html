@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin dashboard{% endblock %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('admin')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('windowshow')}}">User Analysis</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('logout')}}">Logout</a>
+        </li>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+{% block header %}Admin dashboard{% endblock %}
+{% block content %}
+<div class="card mt-5">
+  <div class="card-body">
+    <h2 class="card-title">Categories</h2>
+    <p class="card-text">Categories</p>
+    <a href="{{url_for('categories')}}" class="btn btn-primary">Show categories</a>
+  </div>
+</div>
+<div class="card mt-5">
+  <div class="card-body">
+    <h2 class="card-title">books</h2>
+    <p class="card-text">Books</p>
+    <a href="{{url_for('books')}}" class="btn btn-primary">Show books</a>
+  </div>
+</div>
+<div class="card mt-5">
+  <div class="card-body">
+    <h2 class="card-title">Bookpdf</h2>
+    <p class="card-text">Bookpdf</p>
+    <a href="{{url_for('bookpdf')}}" class="btn btn-primary">Manage Bookpdf</a>
+  </div>
+</div>
+<div class="card mt-5 ">
+  <div class="card-body">
+    <h2 class="card-title">Requests</h2>
+    <p class="card-text">Requests</p>
+    <a href="{{url_for('orders')}}" class="btn btn-primary">Show requests</a>
+  </div>
+</div>
+{% endblock %}

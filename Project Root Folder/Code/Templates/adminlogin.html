@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin login{% endblock %}
+
+{% block header %}Login as admin{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <div class="row justify-content-center custom-text-color ">
+                <strong>{{ message }}</strong>
+                </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+<div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="row justify-content-center">
+            <h2>Login</h2>
+            </div>
+            <form action="{{ url_for('adminlogin') }}" method="post">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="row justify-content-center">
+                <button type="submit" class="btn btn-primary mb-5">Login</button>
+                </div>
+            </form>
+        </div>
+</div>
+{% endblock %}

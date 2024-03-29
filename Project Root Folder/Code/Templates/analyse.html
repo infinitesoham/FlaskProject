@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{{ url_for('analize') }}" class="btn btn-outline-primary btn-lg mb-3">
+   Book Analysis
+</a>
+
+<a href="{{ url_for('categoryanalyse') }}" class="btn btn-outline-primary btn-lg mb-3">
+   Category Analysis
+</a>
+{% endblock %}

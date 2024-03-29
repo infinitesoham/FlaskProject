@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+    <a href="{{url_for('bookpdf')}}" class="btn btn-primary">Bookpdfs</a>
+  </div>
+</div>
+<div class="row justify_content-center">
+    <h1>Upload PDF</h1>
+</div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+        {{ form.csrf_token }}
+        {{ form.book_id.label }}
+        {{ form.book_id }}
+        {{ form.pdf_file.label }}
+        {{ form.pdf_file }}
+        </div>
+        <input type="submit" class="btn btn-primary" value="Upload">
+    </form>
+    <button type="button" class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#overlayModal">
+       Books refer
+      </button>
+        <div class="modal fade" id="overlayModal" tabindex="-1" role="dialog" aria-labelledby="overlayModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="overlayModalLabel">Book Reference</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    {% for book in books %}
+                    <p>{{ book.book_name }}  {{book.book_id}}</p>
+                    {% endfor %}
+                    <div class="row justify-content-center">
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+      </div>
+{% endblock %}

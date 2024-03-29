@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %} This is books {% endblock %}
+
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('dashboard')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('mybook')}}">Mybook</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block header %} Books here {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Requests Pending</h1>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for order in orders %}
+          {% for book in books %}
+            {% if book.book_id==order.book_id %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.book_name}}</h5>
+                        <p class="card-text"><strong>Order id:</strong>{{ order.order_id }} - {{ order.Order_status }} <strong>Book applied at</strong>{{ order.Order_date }}</p>
+                        <a href="{{url_for('bookdrop',orderid=order.order_id)}}" class="btn btn-primary">Revoke Request</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+
+    </div>
+</div>
+<div class="container mt-5">
+  <h1 class="text-center">Books Available</h1>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for order in ordersapproved %}
+      {% for book in books %}
+      {% if book.book_id==order.book_id %}
+      <div class="col">
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title">{{ book.book_name}}</h5>
+                  <p class="card-text"><strong>Order id:</strong>{{ order.order_id }} - {{order.Order_status}} <strong>Time to return</strong>  {{ time - (date - order.Order_date) }}</p>
+                  <a href="{{url_for('bookread',bookid=order.book_id)}}" class="btn btn-primary">Read Book</a>
+                  <a href="{{url_for('bookdrop',orderid=order.order_id)}}" class="btn btn-primary">Return Book</a>
+              </div>
+          </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

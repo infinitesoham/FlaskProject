@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <form action="{{ url_for('categoryedit',categoryid=categoryid) }}" method="post">
+      <div class="form-group">
+        <label for="Categoryname">New categoryname for {{ categoryid }}</label>
+        <input type="text" class="form-control" id="Categoryname" name="Categoryname" placeholder="Enter your Categoryname">
+      </div>
+      <button type="submit" class="btn btn-primary mb-5">Submit</button>
+    </form>
+  </div>
+{% endblock %}
